@@ -40,7 +40,7 @@ void writeChar(EmbeddedCli *embeddedCli, char c){
     }
 
 }
-void writeString(EmbeddedCli *embeddedCli, char *s){
+void writeString(EmbeddedCli *embeddedCli,const char *s){
     eros_stream_t * eros = (eros_stream_t *) embeddedCli->appContext;
     eros_transmit(eros, 6, (uint8_t *) s, strlen(s));
 }
