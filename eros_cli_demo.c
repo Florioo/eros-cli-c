@@ -12,10 +12,13 @@
 
 int getError(EmbeddedCli *cli, char *args, void *context)
 {
-    eros_cli_printf(cli, "An error is forced upon you");
-    return 1;
-}
+    if(1){
+        eros_cli_printf(cli, "An error is forced upon you");
+        return 1;
+    }
 
+    return 0;
+}
 
 float value = 3.1486;
 
@@ -27,8 +30,7 @@ int getFloat(EmbeddedCli *cli, char *args, void *context)
 
 int setFloat(EmbeddedCli *cli, char *args, void *context)
 {
-    const char * arg = embeddedCliGetToken(args, 1);
-    CHECK_RETVAL(eros_cli_get_float(cli, arg, 1, &value));
+    CHECK_RETVAL(eros_cli_get_float(cli, args, 1, &value));
     return 0;
 }
 
