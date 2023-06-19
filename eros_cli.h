@@ -1,0 +1,1 @@
+int eros_cli_init(eros_stream_t * eros, uint8_t channel);
