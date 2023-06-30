@@ -5,15 +5,18 @@
 #include "freertos/task.h"
 #include "string.h"
 #include "eros_cli.h"
+#include "esp_timer.h"
 
 EmbeddedCli *cli;
+#include "esp_log.h"
 
 int eros_cli_callback(eros_stream_t * eros, uint8_t *data, uint16_t length)
 {
+
     // Process the cli command
     for (int i = 0; i < length; i++)
         embeddedCliReceiveChar(cli, data[i]);
-    
+
     // Process the received data
     embeddedCliProcess(cli);
     return 0;
@@ -26,8 +29,6 @@ int eros_cli_get_float(EmbeddedCli *cli, const char *args, uint16_t pos, float *
 
     const char * arg = embeddedCliGetToken(args, 1);
     
-    eros_cli_printf(cli, "arg: %s", arg);
-
     if (arg == NULL) {
         eros_cli_printf(cli, "Missing argument");
         return 1;
@@ -105,12 +106,10 @@ int eros_cli_add_binding(EmbeddedCli *cli, char *command, char *description, boo
 void postCommand(EmbeddedCli *cli, uint8_t result)
 {
     result++;
+    // Print timestamp microseconds
     eros_cli_config_t * cli_config = (eros_cli_config_t *) cli->appContext;
     eros_transmit(cli_config->eros, cli_config->main_channel, &result, 1);
 }
-
-// {RAW|OK|ERROR}
-
 
 
 EmbeddedCliConfig * eros_cli_init(eros_stream_t * eros, uint8_t main_channel, uint8_t aux_channel)

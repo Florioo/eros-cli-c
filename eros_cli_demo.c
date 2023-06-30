@@ -3,6 +3,7 @@
 #include "eros.h"
 #include <stdlib.h>
 #include <errno.h>
+#include <esp_timer.h>
 
 #define CHECK_RETVAL(call) { \
     int retval = (call); \
@@ -34,12 +35,17 @@ int setFloat(EmbeddedCli *cli, char *args, void *context)
     return 0;
 }
 
-
+int ping(EmbeddedCli *cli, char *args, void *context)
+{
+    eros_cli_printf(cli, "pong");
+    return 0;
+}
 
 void eros_cli_demo_add_bindings( EmbeddedCli * cli)
 {
     eros_cli_add_binding(cli, "get-float", "Get a float valiue", false, NULL, getFloat);
     eros_cli_add_binding(cli, "get-error", "Get error", false, NULL, getError);
     eros_cli_add_binding(cli, "set-float", "Set a float value", false, NULL, setFloat);
+    eros_cli_add_binding(cli, "ping", "Ping", false, NULL, ping);
 }
     
