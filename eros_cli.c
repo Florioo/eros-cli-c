@@ -134,7 +134,7 @@ void postCommand(void *handle, uint8_t result)
     // Post the result to the eros stream
     eros_cli_context_t * cli_context = (eros_cli_context_t *) handle;
     result++;
-
+    
     for (int i = 0; i < cli_context->clients_count; i++)
         eros_transmit(cli_context->clients[i].eros, cli_context->clients[i].main_channel, &result, 1);
 
@@ -184,12 +184,6 @@ EmbeddedCli * eros_cli_init()
 int eros_cli_repl_callback(eros_stream_t * eros, uint8_t *data, uint16_t length, void * context)
 {
     eros_cli_context_t *cli_context = (eros_cli_context_t *) context;
-    // printf("cli_handle = %p\n", cli_context->cli);
-
-    // printf("Repl callback[%d]: ", length);
-    // for (int i = 0; i < length; i++)
-    //     printf("%c", data[i]);
-    // printf("\n");
 
     // Process the cli command
     for (int i = 0; i < length; i++)
@@ -206,7 +200,13 @@ int eros_cli_machine_callback(eros_stream_t * eros, uint8_t *data, uint16_t leng
     eros_cli_context_t *cli_context = (eros_cli_context_t *) context;
 
     // Process the received data
-    embeddedCliParseDirectCommand(cli_context->cli, data, length, context);
+    if(embeddedCliParseDirectCommand(cli_context->cli, data, length, context)){
+
+        // Fail to find the command, send an error
+        // Send the error to the eros stream
+        eros_cli_printf(cli_context, "Command not found\n");
+        postCommand(context, 1);
+    }
     return 0;
 }
 
