@@ -21,7 +21,7 @@ typedef struct {
 
 void eros_cli_printf(eros_cli_context_t *cli_context, const char *format, ...);
 EmbeddedCli * eros_cli_init();
-int eros_cli_add_binding(EmbeddedCli *cli, char *command, char *description, bool hidden, void *context, int (*callback)(eros_cli_context_t *cli_context, char *args, void *context));
+int eros_cli_add_binding(EmbeddedCli *cli, char *command, char *description, bool tokenize_args, void *context, int (*callback)(eros_cli_context_t *cli_context, char *args, void *context));
 int eros_cli_get_float(eros_cli_context_t *cli_context, const char *args, uint16_t pos, float * value);
 int eros_cli_get_str(eros_cli_context_t *cli_context, const char *args, uint16_t pos, const char ** value);
 int eros_cli_get_int(eros_cli_context_t *cli_context, const char *args, uint16_t pos, int * value);

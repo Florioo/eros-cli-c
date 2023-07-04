@@ -106,9 +106,9 @@ void eros_cli_repl_write_string(EmbeddedCli *cli, const char *string)
 }
 
 
-int eros_cli_add_binding(EmbeddedCli *cli, char *command, char *description, bool hidden, void *context, int (*callback)(eros_cli_context_t *cli_context, char *args, void *context))
+int eros_cli_add_binding(EmbeddedCli *cli, char *command, char *description, bool tokenize_args, void *context, int (*callback)(eros_cli_context_t *cli_context, char *args, void *context))
 {
-    CliCommandBinding binding = {command, description, hidden, context, (void*)callback};
+    CliCommandBinding binding = {command, description, tokenize_args, context, (void*)callback};
     return embeddedCliAddBinding(cli, binding);
 }
 
