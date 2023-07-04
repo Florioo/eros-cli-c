@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "eros.h"
+#include "eros_core.h"
 #include "eros_cli.h"
 
 #include "esp_log.h"

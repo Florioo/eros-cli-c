@@ -1,4 +1,4 @@
-#include "eros.h"
+#include "eros_core.h"
 #include "embedded_cli.h"
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"

@@ -1,6 +1,6 @@
 #include "stdint.h"
 #include "embedded_cli.h"
-#include "eros.h"
+#include "eros_core.h"
 #ifndef EROS_CLI_H
 #define EROS_CLI_H
 

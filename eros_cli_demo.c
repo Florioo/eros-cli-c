@@ -1,9 +1,8 @@
 #include "eros_cli_demo.h"
 #include "eros_cli.h"
-#include "eros.h"
+#include "eros_core.h"
 #include <stdlib.h>
 #include <errno.h>
-#include <esp_timer.h>
 
 #define CHECK_RETVAL(call) { \
     int retval = (call); \
