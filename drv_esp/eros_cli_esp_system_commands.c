@@ -144,7 +144,7 @@ static int cmd_firmwareInfo(eros_cli_context_t *handle, char *args, void *contex
     eros_cli_printf(handle, "Firmware Information:\n");
     const char * version = esp_get_idf_version();
     eros_cli_printf(handle, "- IDF Version: %s\n", version);
-    esp_app_desc_t * app_desc = esp_app_get_description();
+    const esp_app_desc_t * app_desc = esp_app_get_description();
     eros_cli_printf(handle, "- Project Name: %s\n", app_desc->project_name);
     eros_cli_printf(handle, "- Project Version: %s\n", app_desc->version);
     eros_cli_printf(handle, "- Compile Date: %s\n", app_desc->date);

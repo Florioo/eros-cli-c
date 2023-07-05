@@ -232,7 +232,7 @@ void eros_cli_add_repl_binding(EmbeddedCli * cli, eros_stream_t * eros, uint8_t 
     eros_cli_context->cli = cli;
 
     // Attach the callback on the specified channel
-    eros_attach_receive_callback(eros, main_channel, eros_cli_repl_callback, eros_cli_context);
+    eros_attach_receive_callback(eros, main_channel,(void*) eros_cli_repl_callback, eros_cli_context);
 } 
 
 /**
@@ -254,5 +254,5 @@ void eros_cli_add_machine_binding(EmbeddedCli * cli, eros_stream_t * eros, uint8
     eros_cli_context->cli = cli;
 
     // Attach the callback on the specified channel
-    eros_attach_receive_callback(eros, channel, eros_cli_machine_callback, eros_cli_context);
+    eros_attach_receive_callback(eros, channel,  (void*)eros_cli_machine_callback, eros_cli_context);
 } 
