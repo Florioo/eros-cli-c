@@ -71,7 +71,7 @@ int eros_cli_get_str(eros_cli_context_t *cli_context, const char *args, uint16_t
 
 void eros_cli_printf(eros_cli_context_t *cli_context, const char *format, ...)
 {
-    static char buffer[128];
+    static char buffer[256];
     
     // Set the first byte to 0 to indicate that is just data
     buffer[0] = 0x00;
@@ -85,7 +85,24 @@ void eros_cli_printf(eros_cli_context_t *cli_context, const char *format, ...)
     
     va_end(args);
 }
+void eros_cli_write(eros_cli_context_t *cli_context, const char * data, size_t size)
+{
+    char * buffer = malloc(size + 2);
 
+    if (buffer == NULL) {
+        printf( "Failed to allocate memory");
+        return;
+    }
+
+    memcpy(buffer+1, data, size);
+
+    buffer[0] = 0x00;
+
+    for (int i = 0; i < cli_context->clients_count; i++)
+        eros_transmit(cli_context->clients[i].eros, cli_context->clients[i].main_channel, (uint8_t *) buffer, size+1);
+     
+    free(buffer);
+}
 void eros_cli_repl_write_char(EmbeddedCli *cli, char c)
 {
     eros_cli_context_t * repl_context = (eros_cli_context_t *) cli->appContext;

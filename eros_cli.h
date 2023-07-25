@@ -27,5 +27,6 @@ int eros_cli_get_str(eros_cli_context_t *cli_context, const char *args, uint16_t
 int eros_cli_get_int(eros_cli_context_t *cli_context, const char *args, uint16_t pos, int * value);
 void eros_cli_add_repl_binding(EmbeddedCli * cli, eros_stream_t * eros, uint8_t main_channel, uint8_t aux_channel);
 void eros_cli_add_machine_binding(EmbeddedCli * cli, eros_stream_t * eros, uint8_t channel);
+void eros_cli_write(eros_cli_context_t *cli_context, const char * data, size_t size);
 
 #endif // EROS_CLI_H
