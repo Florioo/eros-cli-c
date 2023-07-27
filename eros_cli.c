@@ -87,7 +87,7 @@ void eros_cli_printf(eros_cli_context_t *cli_context, const char *format, ...)
 }
 void eros_cli_write(eros_cli_context_t *cli_context, const char * data, size_t size)
 {
-    char * buffer = malloc(size + 2);
+    char * buffer = malloc(size + 1);
 
     if (buffer == NULL) {
         printf( "Failed to allocate memory");
