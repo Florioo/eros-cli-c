@@ -168,7 +168,7 @@ EmbeddedCli * eros_cli_init()
     // Create the config for the cli
     EmbeddedCliConfig *config = embeddedCliDefaultConfig();
     config->enableAutoComplete = false;
-    config->maxBindingCount = 32;
+    config->maxBindingCount = 64;
     // Create the cli instance
     EmbeddedCli *cli = embeddedCliNew(config);
 
