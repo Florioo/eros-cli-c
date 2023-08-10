@@ -10,7 +10,7 @@
 #include "esp_netif.h"
 #include "esp_mac.h"
 
-static const char *TAG = "NET_CMD";
+static const char *TAG __attribute__((unused)) = "NET_CMD";
 
 static int cmd_wifi_info(eros_cli_context_t *handle, char *args, void *context)
 {
