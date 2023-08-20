@@ -39,15 +39,15 @@ static int cmd_time(eros_cli_context_t *handle, char *args, void *context)
 
 void eros_restart_task(void *pvParameter)
 {
-    ESP_LOGW(TAG, "Restarting in 3 seconds...");
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
+    ESP_LOGW(TAG, "Restarting...");
+
+    // Some delay to allow the message to be sent
+    vTaskDelay(250 / portTICK_PERIOD_MS);
     esp_restart();
 }
 
 static int cmd_restart(eros_cli_context_t *handle, char *args, void *context)
 {
-    eros_cli_printf(handle, "Restarting in 3 seconds...");
-
     xTaskCreate(eros_restart_task, "restart_task", 4096, NULL, 5, NULL);    
     return 0;
 }
