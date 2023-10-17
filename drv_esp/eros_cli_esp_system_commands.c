@@ -75,25 +75,37 @@ static int cmd_taskStats(eros_cli_context_t *handle, char *args, void *context)
     }
 
     // Print header
-    eros_cli_printf(handle, "Task Name         Status  Prio   HWM       Runtime     Perct\n");
+    eros_cli_printf(handle, "Task Name         Status  Prio   HWM       Runtime     Perct");
+#if configTASKLIST_INCLUDE_COREID
+    eros_cli_printf(handle, "     Core");
+#endif
+    eros_cli_printf(handle, "\n");
     // For each task, print out the desired information
     for (UBaseType_t i = 0; i < numTasks; i++) {
         // Calculate the percentage of the total run time consumed by the task
         float taskRunTimePercentage = taskStatusArray[i].ulRunTimeCounter / (float)totalRunTime * 100.0f;
-        // 
-        eros_cli_printf(handle, 
+        //
+        eros_cli_printf(handle,
             "%-22s"     //pcTaskName
             "%2c"      //eCurrentState
             "%6d"      //uxCurrentPriority
             "%6d"      //usStackHighWaterMark
             "%14d"     //ulRunTimeCounter
-            "%10.2f%%\n",//taskRunTimePercentage
+            "%10.2f%%"//taskRunTimePercentage
+#if configTASKLIST_INCLUDE_COREID
+            "    %c"
+#endif
+            "\n",
             taskStatusArray[i].pcTaskName,
             taskStatusArray[i].eCurrentState + '0', // convert state enum to a character
             taskStatusArray[i].uxCurrentPriority,
             taskStatusArray[i].usStackHighWaterMark,
             taskStatusArray[i].ulRunTimeCounter,
-            taskRunTimePercentage);
+            taskRunTimePercentage
+#if configTASKLIST_INCLUDE_COREID
+            ,(taskStatusArray[i].xCoreID > 1) ? '?' : (taskStatusArray[i].xCoreID + 0x30)
+#endif
+            );
     }
 
     // Don't forget to free the allocated memory
